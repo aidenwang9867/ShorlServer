@@ -11,7 +11,7 @@ import (
 	"github.com/aidenwang9867/ShorlServer/utils"
 )
 
-func PostResultsHandler(w http.ResponseWriter, r *http.Request) {
+func GeneratePostHandler(w http.ResponseWriter, r *http.Request) {
 	reqBody, err := io.ReadAll(r.Body)
 	if err != nil {
 		w.Header().Set("Content-Type", "text/plain")
@@ -36,8 +36,10 @@ func PostResultsHandler(w http.ResponseWriter, r *http.Request) {
 	ret := []utils.Link{}
 	for _, l := range bulkLinks {
 		link := utils.Link{
-			Long:  l,
-			Short: path.Join("sho.rl/l", utils.EncodeLink(l)),
+			Long: l,
+		}
+		if l != "" {
+			link.Short = path.Join("sho.rl/r", utils.EncodeLink(l))
 		}
 		ret = append(ret, link)
 	}
@@ -45,3 +47,12 @@ func PostResultsHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 	_ = json.NewEncoder(w).Encode(ret)
 }
+
+// Testcase
+// [
+// 	"https://pkg.go.dev/cloud.google.com/go/bigtable",
+// 	"https://reqbin.com/",
+//  "https://www.youtube.com/",
+//  "https://www.bilibili.com/",
+//  "https://music.youtube.com/library/playlists"
+// ]
