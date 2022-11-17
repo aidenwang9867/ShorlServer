@@ -5,7 +5,7 @@ A tiny server for creating short links
 ## To run this server
 `git clone` this repo to local, then `go run .` in the root directory.
 
-##Currently supported routes (APIs):
+## Currently supported routes (APIs):
 1. `GET` `/generate`?`long_link`=`{your link}`
 2. `POST` `/generate`, with a request body of type `application/json`:
 ```json
