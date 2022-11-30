@@ -22,7 +22,7 @@ func GeneratePostHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
-	bulkLinks := []string{}
+	var bulkLinks []string
 	err = json.Unmarshal(reqBody, &bulkLinks)
 	if err != nil {
 		w.Header().Set("Content-Type", "text/plain")
@@ -33,7 +33,7 @@ func GeneratePostHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
-	ret := []utils.Link{}
+	var ret []utils.Link
 	for _, l := range bulkLinks {
 		link := utils.Link{
 			Long: l,
